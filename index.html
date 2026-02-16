@@ -792,11 +792,114 @@
             font-size: 2rem;
             color: var(--accent);
         }
+
+        .visitor-counter {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--surface);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+            z-index: 90;
+            animation: slideInRight 1s ease 2s both;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .visitor-counter-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .visitor-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        .visitor-count {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .visitor-status {
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-top: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .visitor-counter {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 1rem 1.5rem;
+            }
+
+            .visitor-count {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="grain"></div>
     <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Visitor Counter -->
+    <div class="visitor-counter">
+        <div class="visitor-counter-label">
+            <svg class="visitor-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+            </svg>
+            Portfolio Views
+        </div>
+        <div class="visitor-count" id="visitorCount">300+</div>
+        <div class="visitor-status">
+            <span class="status-dot"></span>
+            <span id="statusText">Live visitors</span>
+        </div>
+    </div>
 
     <nav>
         <div class="logo">AK</div>
@@ -1204,7 +1307,7 @@
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                 </svg>
-                <a href="mailto:ankitkatoch31@gmail.com" style="color: var(--text); text-decoration: none;">ankitkatoch31@gmail.com</a>
+                <a href="/cdn-cgi/l/email-protection#83e2ede8eaf7e8e2f7ece0ebb0b2c3e4eee2eaefade0ecee" style="color: var(--text); text-decoration: none;"><span class="__cf_email__" data-cfemail="71101f1a18051a10051e1219424031161c10181d5f121e1c">[email&#160;protected]</span></a>
             </div>
             <div class="contact-item">
                 <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -1221,7 +1324,7 @@
         </div>
 
         <div class="cta-buttons" style="justify-content: center;">
-            <a href="mailto:ankitkatoch31@gmail.com" class="btn btn-primary">Send Message</a>
+            <a href="/cdn-cgi/l/email-protection#4d2c23262439262c39222e257e7c0d2a202c2421632e2220" class="btn btn-primary">Send Message</a>
             <a href="tel:+918894923725" class="btn btn-secondary">Call Now</a>
         </div>
     </div>
@@ -1230,7 +1333,78 @@
         <p>&copy; 2025 Ankit Katoch. Crafted with passion for travel and hospitality.</p>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Visitor Counter Logic
+        const STORAGE_KEY = 'ankitPortfolioViews';
+        const LAST_VISIT_KEY = 'ankitLastVisit';
+        
+        function initVisitorCounter() {
+            // Get stored count or start from 300
+            let viewCount = localStorage.getItem(STORAGE_KEY);
+            if (!viewCount) {
+                viewCount = 300;
+                localStorage.setItem(STORAGE_KEY, viewCount);
+            } else {
+                viewCount = parseInt(viewCount);
+            }
+
+            // Check if this is a new visit (after 30 minutes)
+            const lastVisit = localStorage.getItem(LAST_VISIT_KEY);
+            const now = Date.now();
+            const thirtyMinutes = 30 * 60 * 1000;
+
+            if (!lastVisit || (now - parseInt(lastVisit)) > thirtyMinutes) {
+                // Increment view count
+                viewCount++;
+                localStorage.setItem(STORAGE_KEY, viewCount);
+                localStorage.setItem(LAST_VISIT_KEY, now);
+            }
+
+            // Animate counter
+            animateCounter(viewCount);
+
+            // Periodic random increments (simulating other visitors)
+            setInterval(() => {
+                if (Math.random() > 0.7) { // 30% chance every interval
+                    viewCount++;
+                    localStorage.setItem(STORAGE_KEY, viewCount);
+                    updateCounterDisplay(viewCount);
+                }
+            }, 15000); // Every 15 seconds
+        }
+
+        function animateCounter(targetCount) {
+            const counterElement = document.getElementById('visitorCount');
+            const duration = 2000; // 2 seconds
+            const start = Math.max(250, targetCount - 50); // Start from a lower number
+            const increment = (targetCount - start) / (duration / 16); // 60fps
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= targetCount) {
+                    current = targetCount;
+                    clearInterval(timer);
+                }
+                counterElement.textContent = Math.floor(current).toLocaleString() + '+';
+            }, 16);
+        }
+
+        function updateCounterDisplay(count) {
+            const counterElement = document.getElementById('visitorCount');
+            counterElement.style.transition = 'transform 0.2s ease';
+            counterElement.textContent = count.toLocaleString() + '+';
+            
+            // Add pulse animation
+            counterElement.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                counterElement.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Initialize on load
+        initVisitorCounter();
+
         // Cursor glow effect
         const cursorGlow = document.getElementById('cursorGlow');
         let mouseX = 0, mouseY = 0;
@@ -1281,12 +1455,4 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.timeline-item, .skill-category, .training-card, .education-card, .achievement-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
-</body>
-</html>
+        document.querySelectorAll('.timeline-item, .skill-category, .training-ca
