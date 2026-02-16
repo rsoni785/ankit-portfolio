@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankit Katoch | Tourism & Hospitality Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0e27;
+            --accent: #00d4ff;
+            --accent-warm: #ff6b35;
+            --text: #e8eaf6;
+            --text-muted: #a0a8c0;
+            --surface: #151934;
+            --surface-light: #1d2342;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 1000;
+            mix-blend-mode: overlay;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            z-index: 999;
+            mix-blend-mode: screen;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 14, 39, 0.8);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text .title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .stat {
+            padding: 1.5rem;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #0099cc);
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInRight 1s ease 0.5s both;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .skill-orbit {
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
+
+        .orbit-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.4);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+
+        .orbit-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .orbit-ring:nth-child(2) {
+            width: 300px;
+            height: 300px;
+        }
+
+        .orbit-ring:nth-child(3) {
+            width: 400px;
+            height: 400px;
+            animation-duration: 30s;
+        }
+
+        .skill-badge {
+            position: absolute;
+            padding: 0.8rem 1.5rem;
+            background: var(--surface-light);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .skill-badge:nth-child(4) { top: 10%; left: 20%; animation-delay: 0s; }
+        .skill-badge:nth-child(5) { top: 15%; right: 15%; animation-delay: 0.5s; }
+        .skill-badge:nth-child(6) { bottom: 20%; left: 10%; animation-delay: 1s; }
+        .skill-badge:nth-child(7) { bottom: 15%; right: 20%; animation-delay: 1.5s; }
+
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -3.5rem;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .timeline-item .company {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item .period {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-item li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .timeline-item li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+        }
+
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-category h3::before {
+            content: '';
+            width: 40px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+            border-radius: 2px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            padding: 0.6rem 1.2rem;
+            background: var(--surface-light);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-card {
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+        }
+
+        .education-year {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .education-degree {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-institute {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .training-card {
+            padding: 2.5rem;
+            background: var(--surface);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+        }
+
+        .training-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .training-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .training-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .training-duration {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .training-org {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .training-details {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--primary) 100%);
+            border-radius: 40px;
+            margin: 4rem 5%;
+        }
+
+        .contact-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: var(--surface-light);
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--accent);
+        }
+
+        .achievements-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-item {
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 20px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .achievement-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .skill-orbit {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .experience-timeline {
+                padding-left: 1.5rem;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <nav>
+        <div class="logo">AK</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#training">Training</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Ankit Katoch</h1>
+                <div class="title">Tourism & Hospitality Management Professional</div>
+                <p>MBA graduate specializing in Tourism and Hospitality Management with extensive experience in international business development, front office operations, and event management. Passionate about creating exceptional travel experiences and building lasting client relationships.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">4+</span>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">1st</span>
+                        <div class="stat-label">Rank in Graduation</div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">MBA</span>
+                        <div class="stat-label">T&HM Degree</div>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#experience" class="btn btn-secondary">View Experience</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="skill-orbit">
+                    <div class="orbit-ring"></div>
+                    <div class="orbit-ring"></div>
+                    <div class="orbit-center">Tourism<br/>Expert</div>
+                    <div class="skill-badge">B2B Sales</div>
+                    <div class="skill-badge">Operations</div>
+                    <div class="skill-badge">MICE</div>
+                    <div class="skill-badge">Hospitality</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <section id="about">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Passionate about creating memorable travel experiences</p>
+        </div>
+        <div class="training-card">
+            <p style="font-size: 1.1rem; line-height: 1.9; color: var(--text-muted); text-align: center; max-width: 900px; margin: 0 auto;">
+                As a dedicated Tourism and Hospitality Management professional, I bring a unique combination of academic excellence and hands-on industry experience. Currently working at EaseMyTrip.com, I specialize in international business development, identifying and onboarding new clients across target markets. My journey includes comprehensive training at premier institutions like Hotel Radisson Blu Plaza Delhi Airport, where I gained expertise across front office operations, F&B, housekeeping, and food production. With a proven track record in B2B sales, event management, and operations, I'm committed to delivering exceptional service and building sustainable business partnerships in the dynamic travel and hospitality industry.
+            </p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="section-header">
+            <h2 class="section-title">Work Experience</h2>
+            <p class="section-subtitle">Growing expertise in tourism and hospitality</p>
+        </div>
+
+        <div class="experience-timeline">
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3>International Business Development Executive</h3>
+                <div class="company">EaseMyTrip.com</div>
+                <div class="period">Mar 2024 - Present</div>
+                <ul>
+                    <li>Identify, approach, and onboard new business clients in target international markets</li>
+                    <li>Develop and maintain long-term partnerships with distributors, wholesalers, and corporate clients</li>
+                    <li>Conduct comprehensive market research to identify trends, opportunities, and customer needs</li>
+                    <li>Prepare and deliver professional presentations, proposals, and quotations to potential clients</li>
+                    <li>Negotiate pricing, payment terms, and contractual agreements aligned with company policies</li>
+                    <li>Coordinate with internal departments (logistics, finance, product development) for client satisfaction</li>
+                    <li>Participate in international trade fairs, exhibitions, and B2B networking events</li>
+                    <li>Monitor and analyze sales performance in international markets and adjust strategies accordingly</li>
+                    <li>Maintain accurate records in CRM system and exceed quarterly/annual sales targets</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3>Tourism Operations Professional</h3>
+                <div class="company">Travelbullz.com</div>
+                <div class="period">Jan 2023 - Mar 2024 | 1 Year 3 Months</div>
+                <div class="training-org">Ragender Place, New Delhi</div>
+                <ul>
+                    <li>Managed B2B travel operations and client relationships</li>
+                    <li>Coordinated with suppliers and vendors for travel services</li>
+                    <li>Processed bookings and reservations efficiently</li>
+                    <li>Provided excellent customer service and support</li>
+                    <li>Handled operational challenges and resolved client queries</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3>Travel Operations Associate</h3>
+                <div class="company">Duniyaonline.com</div>
+                <div class="period">Sep 2021 - Jan 2023 | 1 Year 5 Months</div>
+                <div class="training-org">Indirapuram, Ghaziabad</div>
+                <ul>
+                    <li>Executed daily travel operations and bookings</li>
+                    <li>Managed customer inquiries and travel documentation</li>
+                    <li>Coordinated with travel partners and service providers</li>
+                    <li>Maintained accurate records and reports</li>
+                    <li>Supported team in achieving operational targets</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="section-header">
+            <h2 class="section-title">Education</h2>
+            <p class="section-subtitle">Academic excellence in tourism and hospitality</p>
+        </div>
+
+        <div class="education-grid">
+            <div class="education-card">
+                <div class="education-year">2021</div>
+                <div class="education-degree">MBA (T&HM)</div>
+                <div style="color: var(--text); margin-bottom: 0.5rem;">Master in Tourism and Hospitality Management</div>
+                <div class="education-institute">Himachal Pradesh Technical University, Hamirpur</div>
+            </div>
+
+            <div class="education-card">
+                <div class="education-year">2019</div>
+                <div class="education-degree">Graduation</div>
+                <div class="education-institute">CSKHPKV, Palampur</div>
+            </div>
+
+            <div class="education-card">
+                <div class="education-year">2015</div>
+                <div class="education-degree">10+2</div>
+                <div class="education-institute">Himachal Pradesh Board of School Education, Dharamshala</div>
+            </div>
+
+            <div class="education-card">
+                <div class="education-year">2013</div>
+                <div class="education-degree">Matriculation</div>
+                <div class="education-institute">Himachal Pradesh Board of School Education, Dharamshala</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <div class="section-header">
+            <h2 class="section-title">Achievements</h2>
+            <p class="section-subtitle">Recognition and accomplishments</p>
+        </div>
+
+        <div class="achievements-list">
+            <div class="achievement-item">
+                <div class="achievement-icon">🏆</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">1st Rank in Graduation</h3>
+                <p style="color: var(--text-muted);">Stood first at the graduation level, demonstrating academic excellence and dedication to learning.</p>
+            </div>
+
+            <div class="achievement-item">
+                <div class="achievement-icon">📜</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">Graduation Level Certification</h3>
+                <p style="color: var(--text-muted);">Received certification of participation in graduation level programs and activities.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="training">
+        <div class="section-header">
+            <h2 class="section-title">Professional Training</h2>
+            <p class="section-subtitle">Comprehensive industry exposure and skill development</p>
+        </div>
+
+        <div class="training-card">
+            <div class="training-header">
+                <h3 class="training-title">Industrial Training - Hotel Operations</h3>
+                <span class="training-duration">4 Months</span>
+            </div>
+            <div class="training-org">Hotel Radisson Blu Plaza Delhi Airport | CSKHPKV, Palampur</div>
+            <div class="training-details">
+                <strong style="color: var(--accent);">Departments Covered:</strong>
+                <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                    <li>Front Office: Reception, Revenue and Reservation, Business Centre, Communication Departments</li>
+                    <li>Food and Beverage Service</li>
+                    <li>Housekeeping Operations</li>
+                    <li>Food Production</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="training-card">
+            <div class="training-header">
+                <h3 class="training-title">Industrial Training - Travel Technology</h3>
+                <span class="training-duration">2 Months</span>
+            </div>
+            <div class="training-org">Wander Whiz Holidays | Himachal Pradesh Technical University</div>
+            <div class="training-details">
+                <strong style="color: var(--accent);">Skills Acquired:</strong>
+                <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                    <li>Travel booking systems: TBO, Travelbullz, Rayna, Reazlive, North Guru</li>
+                    <li>Microsoft Office Suite: MS Word, MS Excel, MS PowerPoint</li>
+                    <li>Office productivity and documentation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="training-card">
+            <div class="training-header">
+                <h3 class="training-title">LDC - Leadership Development Camp</h3>
+                <span class="training-duration">10 Days</span>
+            </div>
+            <div class="training-org">Vagabond Camp | HP Technical University, Hamirpur</div>
+            <div class="training-details">
+                <strong style="color: var(--accent);">Adventure Activities:</strong>
+                <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                    <li>Trekking and rock climbing</li>
+                    <li>Camping and rafting</li>
+                    <li>Rappelling and river crossing</li>
+                    <li>Team building and leadership exercises</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="training-card">
+            <div class="training-header">
+                <h3 class="training-title">Field Trip - Product Knowledge</h3>
+                <span class="training-duration">16 Days</span>
+            </div>
+            <div class="training-org">Rajasthan, Maharashtra and Goa</div>
+            <div class="training-details">
+                <strong style="color: var(--accent);">Destinations Covered:</strong> Jaisalmer, Udaipur, Jaipur, Mumbai and beaches of Goa
+                <p style="margin-top: 1rem; color: var(--text-muted);">Comprehensive study of tourist destinations, cultural heritage, hospitality infrastructure, and travel operations across multiple states.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="section-header">
+            <h2 class="section-title">Professional Skills</h2>
+            <p class="section-subtitle">Comprehensive expertise in tourism and hospitality</p>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Business Development</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">International Markets</span>
+                    <span class="skill-tag">B2B Sales</span>
+                    <span class="skill-tag">Client Acquisition</span>
+                    <span class="skill-tag">Partnership Management</span>
+                    <span class="skill-tag">Market Research</span>
+                    <span class="skill-tag">Negotiation</span>
+                    <span class="skill-tag">CRM Management</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Operations</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Outbound Operations</span>
+                    <span class="skill-tag">Inbound Operations</span>
+                    <span class="skill-tag">MICE</span>
+                    <span class="skill-tag">Adventure Operations</span>
+                    <span class="skill-tag">Tour Planning</span>
+                    <span class="skill-tag">Vendor Coordination</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Hotel Operations</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Front Office</span>
+                    <span class="skill-tag">Reception</span>
+                    <span class="skill-tag">Revenue Management</span>
+                    <span class="skill-tag">Reservations</span>
+                    <span class="skill-tag">F&B Service</span>
+                    <span class="skill-tag">Housekeeping</span>
+                    <span class="skill-tag">Guest Relations</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Travel Technology</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">TBO</span>
+                    <span class="skill-tag">Travelbullz</span>
+                    <span class="skill-tag">Rayna</span>
+                    <span class="skill-tag">Reazlive</span>
+                    <span class="skill-tag">North Guru</span>
+                    <span class="skill-tag">Booking Systems</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>MS Office & Tools</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">MS Word</span>
+                    <span class="skill-tag">MS Excel</span>
+                    <span class="skill-tag">MS PowerPoint</span>
+                    <span class="skill-tag">Documentation</span>
+                    <span class="skill-tag">Data Analysis</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Event Management</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Tourism Events</span>
+                    <span class="skill-tag">Workshops</span>
+                    <span class="skill-tag">Seminars</span>
+                    <span class="skill-tag">Exhibitions</span>
+                    <span class="skill-tag">Competitions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="event">
+        <div class="section-header">
+            <h2 class="section-title">Event Management</h2>
+            <p class="section-subtitle">Organizing memorable experiences</p>
+        </div>
+
+        <div class="training-card">
+            <div class="training-header">
+                <h3 class="training-title">World Tourism Day</h3>
+                <span class="training-duration">7 Days</span>
+            </div>
+            <div class="training-org">HP Technical University & Department of Tourism</div>
+            <div class="training-details">
+                <strong style="color: var(--accent);">Activities Organized:</strong>
+                <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                    <li>Quiz Competitions promoting tourism knowledge</li>
+                    <li>Painting Competitions showcasing cultural themes</li>
+                    <li>Heritage Walk exploring historical sites</li>
+                    <li>Educational Seminars and Workshops</li>
+                    <li>Community engagement programs</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="hobbies">
+        <div class="section-header">
+            <h2 class="section-title">Interests & Activities</h2>
+            <p class="section-subtitle">Beyond professional life</p>
+        </div>
+
+        <div class="achievements-list">
+            <div class="achievement-item">
+                <div class="achievement-icon">✈️</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">Travel Enthusiast</h3>
+                <p style="color: var(--text-muted);">Passionate about exploring new destinations and experiencing different cultures.</p>
+            </div>
+
+            <div class="achievement-item">
+                <div class="achievement-icon">🤝</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">People Person</h3>
+                <p style="color: var(--text-muted);">Love interacting with new people and building meaningful connections.</p>
+            </div>
+
+            <div class="achievement-item">
+                <div class="achievement-icon">🏏</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">Sports</h3>
+                <p style="color: var(--text-muted);">Active cricket player - represented college and school teams. Also enjoy volleyball.</p>
+            </div>
+
+            <div class="achievement-item">
+                <div class="achievement-icon">🏍️</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">Adventure Seeker</h3>
+                <p style="color: var(--text-muted);">Bike riding enthusiast and always looking for the next adventure.</p>
+            </div>
+
+            <div class="achievement-item">
+                <div class="achievement-icon">🔍</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">Curious Learner</h3>
+                <p style="color: var(--text-muted);">Enjoy finding facts and learning about diverse topics.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="contact-section" id="contact">
+        <h2>Let's Connect</h2>
+        <p>I'm always excited to discuss new opportunities in tourism and hospitality, explore potential collaborations, or simply connect with fellow industry professionals!</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+                <a href="mailto:ankitkatoch31@gmail.com" style="color: var(--text); text-decoration: none;">ankitkatoch31@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+                <span>+91-88949-23725</span>
+            </div>
+            <div class="contact-item">
+                <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Baijnath, Himachal Pradesh</span>
+            </div>
+        </div>
+
+        <div class="cta-buttons" style="justify-content: center;">
+            <a href="mailto:ankitkatoch31@gmail.com" class="btn btn-primary">Send Message</a>
+            <a href="tel:+918894923725" class="btn btn-secondary">Call Now</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Ankit Katoch. Crafted with passion for travel and hospitality.</p>
+    </footer>
+
+    <script>
+        // Cursor glow effect
+        const cursorGlow = document.getElementById('cursorGlow');
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateGlow() {
+            glowX += (mouseX - glowX) * 0.1;
+            glowY += (mouseY - glowY) * 0.1;
+            
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item, .skill-category, .training-card, .education-card, .achievement-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
